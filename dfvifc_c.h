@@ -56,12 +56,6 @@ typedef enum  {
 	PDF_15,					/* PDF 1.5 */
 	PDF_16,					/* PDF 1.6 */
 	PDF_17,					/* PDF 1.7 */
-	PDFX_1a_2001= 101,		/* ISO 15930-1:2001 PDF/X-1a-2001 (based on PDF1.3) */
-	PDFX_3_2002	= 103,		/* ISO 15930-3:2002 PDF/X-3-2002  (based on PDF1.3) */
-	PDFX_1a_2003= 104,		/* ISO 15930-4:2003 PDF/X-1a-2003 (based on PDF1.4) */
-	PDFX_2_2003	= 105,		/* ISO 15930-5:2003 PDF/X-2-2003  (based on PDF1.4) */
-	PDFX_3_2003	= 106,		/* ISO 15930-6:2003 PDF/X-3-2003  (based on PDF1.4) */
-	PDFA_1a_2005= 200,		/* ISO 19005-1:2005 (based on PDF1.4) */
 	PDFA_1b_2005= 400		/* ISO 19005-1:2005 (based on PDF1.4) */
 } DfvPDFVERSION;
 
@@ -69,8 +63,12 @@ typedef enum  {
  * PDF encrypt level
  */
 typedef enum  {
-	ENCLEVEL_40,			/* 40-bit RC4 */
-	ENCLEVEL_128			/* 128-bit RC4 */
+	ENCLEVEL_40RC4 = 0, /* 40-bit RC4 */
+	ENCLEVEL_128RC4, /* 128-bit RC4 */
+	ENCLEVEL_128AES, /* 128-bit AES */
+	ENCLEVEL_256AES, /* 256-bit AES */
+	ENCLEVEL_40 = ENCLEVEL_40RC4,
+	ENCLEVEL_128 = ENCLEVEL_128RC4
 } DfvPDFENCRYPTLEVEL;
 
 /**
@@ -970,122 +968,6 @@ DFVINTERFACE_API long dfv_getPdfLinearize(CDfvObjPtr pDfvObj);
  * @param	newVal	If the value is 'true' is specified, output linearlize PDF.
  */
 DFVINTERFACE_API void dfv_setPdfLinearize(CDfvObjPtr pDfvObj, long newVal);
-
-#if defined(_DOXYGEN) || (defined(_MSC_VER) && defined(_WIN32))
-
-/**
- * Effective when outputting to PDF.
- * Gets the value of whether to sign a signature to PDF or not.
- * 
- *
- * @param	pDfvObj	Pointer to DfvObj instance.
- * @return	the value of whether to sign a signature to PDF or not.
- */
-DFVINTERFACE_API long dfv_getPdfSignature(CDfvObjPtr pDfvObj);
-
-/**
- * Effective when outputting to PDF.
- * Specifies whether to sign a signature to PDF or not.
- * 
- *
- * @param	pDfvObj	Pointer to DfvObj instance.
- * @param	newVal	If the value is 'true' is specified, sign a signature to PDF.
- */
-DFVINTERFACE_API void dfv_setPdfSignature(CDfvObjPtr pDfvObj, long newVal);
-
-/**
- * Effective when outputting to PDF.
- * Gets the value of a signature information name.
- * 
- *
- * @param	pDfvObj	Pointer to DfvObj instance.
- * @param	pVal		Pointer to the buffer that will receive the text. If the string is as long or longer than the buffer,
- *			  the string is truncated and terminated with a NULL character.
- * @param	size		Specifies the number of the 'pVal' buffer, including the NULL character. If the text exceeds this limit, it is truncated.
- * @return	the value of a signature information name.
- */
-DFVINTERFACE_API char* dfv_getPdfSignatureName(CDfvObjPtr pDfvObj, char* pVal, int size);
-
-/**
- * Effective when outputting to PDF.
- * Gets the value of a signature information name.
- * 
- *
- * @param	pDfvObj	Pointer to DfvObj instance.
- * @param	pVal		Pointer to the buffer that will receive the text. If the string is as long or longer than the buffer,
- *			  the string is truncated and terminated with a NULL character.
- * @param	size		Specifies the number of the 'pVal' buffer, including the NULL character. If the text exceeds this limit, it is truncated.
- * @return	the value of a signature information name.
- */
-DFVINTERFACE_API wchar_t* dfv_getPdfSignatureNameW(CDfvObjPtr pDfvObj, wchar_t* pVal, int size);
-
-/**
- * Effective when outputting to PDF.
- * Sets a signature information name.
- * 
- *
- * @param	pDfvObj	Pointer to DfvObj instance.
- * @param	newVal	the value of a signature information name.
- */
-DFVINTERFACE_API void dfv_setPdfSignatureName(CDfvObjPtr pDfvObj, const char* newVal);
-
-/**
- * Effective when outputting to PDF.
- * Sets a signature information name.
- * 
- *
- * @param	pDfvObj	Pointer to DfvObj instance.
- * @param	newVal	the value of a signature information name.
- */
-DFVINTERFACE_API void dfv_setPdfSignatureNameW(CDfvObjPtr pDfvObj, const wchar_t* newVal);
-
-/**
- * Effective when outputting to PDF.
- * Gets the value of a certificate information name.
- * 
- *
- * @param	pDfvObj	Pointer to DfvObj instance.
- * @param	pVal		Pointer to the buffer that will receive the text. If the string is as long or longer than the buffer,
- *			  the string is truncated and terminated with a NULL character.
- * @param	size		Specifies the number of the 'pVal' buffer, including the NULL character. If the text exceeds this limit, it is truncated.
- * @return	the value of a certificate information name.
- */
-DFVINTERFACE_API char* dfv_getPdfCertificateName(CDfvObjPtr pDfvObj, char* pVal, int size);
-
-/**
- * Effective when outputting to PDF.
- * Gets the value of a certificate information name.
- * 
- *
- * @param	pDfvObj	Pointer to DfvObj instance.
- * @param	pVal		Pointer to the buffer that will receive the text. If the string is as long or longer than the buffer,
- *			  the string is truncated and terminated with a NULL character.
- * @param	size		Specifies the number of the 'pVal' buffer, including the NULL character. If the text exceeds this limit, it is truncated.
- * @return	the value of a certificate information name.
- */
-DFVINTERFACE_API wchar_t* dfv_getPdfCertificateNameW(CDfvObjPtr pDfvObj, wchar_t* pVal, int size);
-
-/**
- * Effective when outputting to PDF.
- * Sets a certificate information name.
- * 
- *
- * @param	pDfvObj	Pointer to DfvObj instance.
- * @param	newVal	the value of a certificate information name.
- */
-DFVINTERFACE_API void dfv_setPdfCertificateName(CDfvObjPtr pDfvObj, const char* newVal);
-
-/**
- * Effective when outputting to PDF.
- * Sets a certificate information name.
- * 
- *
- * @param	pDfvObj	Pointer to DfvObj instance.
- * @param	newVal	the value of a certificate information name.
- */
-DFVINTERFACE_API void dfv_setPdfCertificateNameW(CDfvObjPtr pDfvObj, const wchar_t* newVal);
-
-#endif
 
 /**
  * Effective when outputting to PDF.
@@ -2484,6 +2366,69 @@ DFVINTERFACE_API long dfv_getFlashHidePageButton(CDfvObjPtr pDfvObj);
  */
 DFVINTERFACE_API void dfv_setFlashHidePageButton(CDfvObjPtr pDfvObj, long newVal);
 
+/**
+ * Get the setting of the FlashSplitPage.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @return
+ * Specify FlashSplitPage.
+ */
+DFVINTERFACE_API long dfv_getFlashSplitPage(CDfvObjPtr pDfvObj);
+
+/**
+ * Outputs Flash file per page and saves as every single file..<BR>
+ * Effective when outputting to Flash.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param newVal
+ * If 'true' is specified, do not output Flash file per page.
+ */
+DFVINTERFACE_API void dfv_setFlashSplitPage(CDfvObjPtr pDfvObj, long newVal);
+
+/**
+ * Get the setting of FlashOutputAction.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @return
+ * Specify FlashOutputAction.
+ */
+DFVINTERFACE_API long dfv_getFlashOutputAction(CDfvObjPtr pDfvObj);
+
+/**
+ * Do not output features of ActionScript1.0, such as stop action per page, the page navigation button, linking, etc..<BR>
+ * Effective when outputting to Flash.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param newVal
+ * If 'true' is specified, do not output Flash file per page.
+ */
+DFVINTERFACE_API void dfv_setFlashOutputAction(CDfvObjPtr pDfvObj, long newVal);
+
+/**
+ * Get the setting of FlashImageLimitSize.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @return
+ * Specify FlashImageLimitSize.
+ */
+DFVINTERFACE_API int dfv_getFlashImageLimitSize(CDfvObjPtr pDfvObj);
+
+/**
+ * Specifies the number of maximum pixels of images outputted to the Flash file by the integral value. 
+ * When the width or the height of the output image exceeds the specified value, 
+ * it is reduced to the specified value when outputting the flash file. 
+ * When this parameter is omitted, 1000 is applied.  <BR>
+ * The image size that can be embedded in Flash is limited to the value of width x height with 2 raised to the 24th power (16,777,216) 
+ * by the number of pixels. Please note that when embedded image exceeds this size, 
+ * it may not be displayed with Flash Player.<BR>
+ * Effective when outputting to Flash.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param newVal
+ * If 'true' is specified, do not output Flash file per page.
+ */
+DFVINTERFACE_API void dfv_setFlashImageLimitSize(CDfvObjPtr pDfvObj, int newVal);
+
 #if defined(_DOXYGEN) || (defined(_MSC_VER) && defined(_WIN32))
 
 /**
@@ -2505,6 +2450,15 @@ DFVINTERFACE_API void dfv_setPrnFitPaper(CDfvObjPtr pDfvObj, int newVal);
  * @param	newVal		the scaling ratio of the PDF 
  */
 DFVINTERFACE_API void dfv_setPdfOutputScale(CDfvObjPtr pDfvObj, const char* newVal);
+
+/**
+ * Specifies the scaling ratio of the PDF to output.
+ * A value with a unit or % value can be specified as length.
+ * Effective when outputting to PDF. 
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	newVal		the scaling ratio of the PDF 
+ */
 DFVINTERFACE_API void dfv_setPdfOutputScaleW(CDfvObjPtr pDfvObj, const wchar_t* newVal);
 
 /**
@@ -2530,12 +2484,31 @@ DFVINTERFACE_API void dfv_setRasterDPI(CDfvObjPtr pDfvObj, int newVal);
  * Effective when outputting to image, and only Windows version. 
  *
  * @param	pDfvObj	Pointer to DfvObj instance.
- * @param	pVal		Pointer to the buffer that will receive the image copy path. If the string is as long or longer than the buffer,
- *			  the string is truncated and terminated with a NULL character.
- * @param	size		Specifies the number of the 'pVal' buffer, including the NULL character. If the text exceeds this limit, it is truncated.
- * @return		Image scale 
+ * @param	pVal		
+ *			Pointer to the buffer that will receive the text. 
+ *			If the string is as long or longer than the buffer,
+ *			the string is truncated and terminated with a NULL character.
+ * @param	size
+ *			Specifies the number of the 'pVal' buffer, including the NULL character.
+ *			If the text exceeds this limit, it is truncated.
+ * @return	Returns the 'pVal'.
  */
 DFVINTERFACE_API char* dfv_getRasterScale(CDfvObjPtr pDfvObj, char* pVal, int size);
+
+/**
+ *  Get the image scale when outputting JPEG and PNG.
+ * Effective when outputting to image, and only Windows version. 
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	pVal		
+ *			Pointer to the buffer that will receive the text. 
+ *			If the string is as long or longer than the buffer,
+ *			the string is truncated and terminated with a NULL character.
+ * @param	size
+ *			Specifies the number of the 'pVal' buffer, including the NULL character.
+ *			If the text exceeds this limit, it is truncated.
+ * @return	Returns the 'pVal'.
+ */
 DFVINTERFACE_API wchar_t* dfv_getRasterScaleW(CDfvObjPtr pDfvObj, wchar_t* pVal, int size);
 
 /**
@@ -2548,6 +2521,16 @@ DFVINTERFACE_API wchar_t* dfv_getRasterScaleW(CDfvObjPtr pDfvObj, wchar_t* pVal,
  * @param	newVal		Image scale 
  */
 DFVINTERFACE_API void dfv_setRasterScale(CDfvObjPtr pDfvObj, const char* newVal);
+
+/**
+ * Sets the image scale when outputting JPEG and PNG.
+ * A numerical value, "%", or "px" (pixel) is available as the unit.
+ * Specify the percentage for a numerical value and "%", and specify the width of image for pixel.
+ * Effective when outputting to image, and only Windows version. 
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	newVal		Image scale 
+ */
 DFVINTERFACE_API void dfv_setRasterScaleW(CDfvObjPtr pDfvObj, const wchar_t* newVal);
 
 /**
@@ -2574,12 +2557,31 @@ DFVINTERFACE_API void dfv_setRasterHeight(CDfvObjPtr pDfvObj, int newVal);
  * Effective when outputting to image, and only Windows version.
  *
  * @param	pDfvObj	Pointer to DfvObj instance.
- * @param	pVal		Pointer to the buffer that will receive the image copy path. If the string is as long or longer than the buffer,
- *			  the string is truncated and terminated with a NULL character.
- * @param	size		Specifies the number of the 'pVal' buffer, including the NULL character. If the text exceeds this limit, it is truncated.
- * @return			format for naming files
+ * @param	pVal		
+ *			Pointer to the buffer that will receive the text. 
+ *			If the string is as long or longer than the buffer,
+ *			the string is truncated and terminated with a NULL character.
+ * @param	size
+ *			Specifies the number of the 'pVal' buffer, including the NULL character.
+ *			If the text exceeds this limit, it is truncated.
+ * @return	Returns the 'pVal'.
  */
 DFVINTERFACE_API char* dfv_getRasterFormat(CDfvObjPtr pDfvObj, char* pVal, int size);
+
+/**
+ * Get the file name naming format when outputting PNG and JPEG.<BR>
+ * Effective when outputting to image, and only Windows version.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	pVal		
+ *			Pointer to the buffer that will receive the text. 
+ *			If the string is as long or longer than the buffer,
+ *			the string is truncated and terminated with a NULL character.
+ * @param	size
+ *			Specifies the number of the 'pVal' buffer, including the NULL character.
+ *			If the text exceeds this limit, it is truncated.
+ * @return	Returns the 'pVal'.
+ */
 DFVINTERFACE_API wchar_t* dfv_getRasterFormatW(CDfvObjPtr pDfvObj, wchar_t* pVal, int size);
 
 /**
@@ -2590,6 +2592,14 @@ DFVINTERFACE_API wchar_t* dfv_getRasterFormatW(CDfvObjPtr pDfvObj, wchar_t* pVal
  * @param	newVal	format for naming files
  */
 DFVINTERFACE_API void dfv_setRasterFormat(CDfvObjPtr pDfvObj, const char* newVal);
+
+/**
+ * Specifies the file name naming format when outputting PNG and JPEG.<BR>
+ * Effective when outputting to image, and only Windows version.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	newVal	format for naming files
+ */
 DFVINTERFACE_API void dfv_setRasterFormatW(CDfvObjPtr pDfvObj, const wchar_t* newVal);
 
 /**
@@ -2648,6 +2658,210 @@ DFVINTERFACE_API long dfv_getRasterMonochrome(CDfvObjPtr pDfvObj);
  */
 DFVINTERFACE_API void dfv_setRasterMonochrome(CDfvObjPtr pDfvObj, long newVal);
 
+/**
+ * @deprecated
+ * Get the path name of the RGB profile file.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	pVal		
+ *			Pointer to the buffer that will receive the text. 
+ *			If the string is as long or longer than the buffer,
+ *			the string is truncated and terminated with a NULL character.
+ * @param	size
+ *			Specifies the number of the 'pVal' buffer, including the NULL character.
+ *			If the text exceeds this limit, it is truncated.
+ * @return	Returns the 'pVal'.
+ */
+DFVINTERFACE_API char* dfv_getRasterRGBProfile(CDfvObjPtr pDfvObj, char* pVal, int size);
+
+/**
+ * @deprecated
+ * Get the path name of the RGB profile file.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	pVal		
+ *			Pointer to the buffer that will receive the text. 
+ *			If the string is as long or longer than the buffer,
+ *			the string is truncated and terminated with a NULL character.
+ * @param	size
+ *			Specifies the number of the 'pVal' buffer, including the NULL character.
+ *			If the text exceeds this limit, it is truncated.
+ * @return	Returns the 'pVal'.
+ */
+DFVINTERFACE_API wchar_t* dfv_getRasterRGBProfileW(CDfvObjPtr pDfvObj, wchar_t* pVal, int size);
+
+/**
+ * @deprecated
+ * Set the path name of the RGB profile file.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	newVal	Pointer to a null-terminated string.
+ */
+DFVINTERFACE_API void dfv_setRasterRGBProfile(CDfvObjPtr pDfvObj, const char* newVal);
+
+/**
+ * @deprecated
+ * Set the path name of the RGB profile file.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	newVal	Pointer to a null-terminated string.
+ */
+DFVINTERFACE_API void dfv_setRasterRGBProfileW(CDfvObjPtr pDfvObj, const wchar_t* newVal);
+
+/**
+ * @deprecated
+ * Get the path name of the CMYK profile file.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	pVal		
+ *			Pointer to the buffer that will receive the text. 
+ *			If the string is as long or longer than the buffer,
+ *			the string is truncated and terminated with a NULL character.
+ * @param	size
+ *			Specifies the number of the 'pVal' buffer, including the NULL character.
+ *			If the text exceeds this limit, it is truncated.
+ * @return	Returns the 'pVal'.
+ */
+DFVINTERFACE_API char* dfv_getRasterCMYKProfile(CDfvObjPtr pDfvObj, char* pVal, int size);
+
+/**
+ * @deprecated
+ * Get the path name of the CMYK profile file.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	pVal		
+ *			Pointer to the buffer that will receive the text. 
+ *			If the string is as long or longer than the buffer,
+ *			the string is truncated and terminated with a NULL character.
+ * @param	size
+ *			Specifies the number of the 'pVal' buffer, including the NULL character.
+ *			If the text exceeds this limit, it is truncated.
+ * @return	Returns the 'pVal'.
+ */
+DFVINTERFACE_API wchar_t* dfv_getRasterCMYKProfileW(CDfvObjPtr pDfvObj, wchar_t* pVal, int size);
+
+/**
+ * @deprecated
+ * Set the path name of the CMYK profile file.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	newVal	Pointer to a null-terminated string.
+ */
+DFVINTERFACE_API void dfv_setRasterCMYKProfile(CDfvObjPtr pDfvObj, const char* newVal);
+
+/**
+ * @deprecated
+ * Set the path name of the CMYK profile file.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	newVal	Pointer to a null-terminated string.
+ */
+DFVINTERFACE_API void dfv_setRasterCMYKProfileW(CDfvObjPtr pDfvObj, const wchar_t* newVal);
+
+/**
+ * Get the setting of whether to convert images to grayscale 256 tones.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @return 
+ * Specify whether to convert images to grayscale 256 tones.
+ */
+DFVINTERFACE_API long dfv_getRasterGrayscale(CDfvObjPtr pDfvObj);
+
+/**
+ * Outputs grayscale 256 tones..<BR>
+ * Effective when outputting to image, and only Windows version.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param newVal
+ * If "true" is specified, convert images to grayscale 256 tones.
+ */
+DFVINTERFACE_API void dfv_setRasterGrayscale(CDfvObjPtr pDfvObj, long newVal);
+
+/**
+ * Get the setting of whether to convert images to 256 colors.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @return
+ * Specify whether to convert images to 256 colors.
+ */
+DFVINTERFACE_API long dfv_getRaster256Color(CDfvObjPtr pDfvObj);
+
+/**
+ * Outputs 256 colors..<BR>
+ * Effective when outputting to image, and only Windows version.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param newVal
+ * If "true" is specified, convert images to 256 colors.
+ */
+DFVINTERFACE_API void dfv_setRaster256Color(CDfvObjPtr pDfvObj, long newVal);
+
+/**
+ * @deprecated
+ * Get the compression method when outputting TIFF / MTIFF.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	pVal		
+ *			Pointer to the buffer that will receive the text. 
+ *			If the string is as long or longer than the buffer,
+ *			the string is truncated and terminated with a NULL character.
+ * @param	size
+ *			Specifies the number of the 'pVal' buffer, including the NULL character.
+ *			If the text exceeds this limit, it is truncated.
+ * @return	Returns the 'pVal'.
+ */
+DFVINTERFACE_API char* dfv_getRasterCompression(CDfvObjPtr pDfvObj, char* pVal, int size);
+
+/**
+ * @deprecated
+ * Get the compression method when outputting TIFF / MTIFF.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	pVal		
+ *			Pointer to the buffer that will receive the text. 
+ *			If the string is as long or longer than the buffer,
+ *			the string is truncated and terminated with a NULL character.
+ * @param	size
+ *			Specifies the number of the 'pVal' buffer, including the NULL character.
+ *			If the text exceeds this limit, it is truncated.
+ * @return	Returns the 'pVal'.
+ */
+DFVINTERFACE_API wchar_t* dfv_getRasterCompressionW(CDfvObjPtr pDfvObj, wchar_t* pVal, int size);
+
+/**
+ * @deprecated
+ * Specifies the compression method when outputting TIFF / MTIFF.<BR>
+ * The compression method.<BR>
+ * none : None<BR>
+ * lzw : ZLIB compression(When this parameter is omitted, lzw is applied.)<BR>
+ * dct : DCTDecode<BR>
+ * flate : FlateDecode<BR>
+ * runlength : Run Length compression<BR>
+ * ccitt3 : CCITT Group3<BR>
+ * ccitt4 : CCITT Group4<BR>
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	newVal	Pointer to a null-terminated string.
+ */
+DFVINTERFACE_API void dfv_setRasterCompression(CDfvObjPtr pDfvObj, const char* newVal);
+
+/**
+ * @deprecated
+ * Specifies the compression method when outputting TIFF / MTIFF.<BR>
+ * The compression method.<BR>
+ * none : None<BR>
+ * lzw : ZLIB compression(When this parameter is omitted, lzw is applied.)<BR>
+ * dct : DCTDecode<BR>
+ * flate : FlateDecode<BR>
+ * runlength : Run Length compression<BR>
+ * ccitt3 : CCITT Group3<BR>
+ * ccitt4 : CCITT Group4<BR>
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	newVal	Pointer to a null-terminated string.
+ */
+DFVINTERFACE_API void dfv_setRasterCompressionW(CDfvObjPtr pDfvObj, const wchar_t* newVal);
+
 #endif	// #if defined(_DOXYGEN) || (defined(_MSC_VER) && defined(_WIN32))
 
 /**
@@ -2658,6 +2872,14 @@ DFVINTERFACE_API void dfv_setRasterMonochrome(CDfvObjPtr pDfvObj, long newVal);
  * @param	newVal		the height of paper 
  */
 DFVINTERFACE_API void dfv_setTextPaperHeight(CDfvObjPtr pDfvObj, const char* newVal);
+
+/**
+ * Specifies the height of the paper when inputting text.
+ * Effective when inputting text. 
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	newVal		the height of paper 
+ */
 DFVINTERFACE_API void dfv_setTextPaperHeightW(CDfvObjPtr pDfvObj, const wchar_t* newVal);
 
 /**
@@ -2668,6 +2890,14 @@ DFVINTERFACE_API void dfv_setTextPaperHeightW(CDfvObjPtr pDfvObj, const wchar_t*
  * @param	newVal		the width of paper 
  */
 DFVINTERFACE_API void dfv_setTextPaperWidth(CDfvObjPtr pDfvObj, const char* newVal);
+
+/**
+ * Specifies the width of the paper when inputting text.
+ * Effective when inputting text. 
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	newVal		the width of paper 
+ */
 DFVINTERFACE_API void dfv_setTextPaperWidthW(CDfvObjPtr pDfvObj, const wchar_t* newVal);
 
 /**
@@ -2678,6 +2908,14 @@ DFVINTERFACE_API void dfv_setTextPaperWidthW(CDfvObjPtr pDfvObj, const wchar_t* 
  * @param	newVal		 the left margin of the paper 
  */
 DFVINTERFACE_API void dfv_setTextMarginLeft(CDfvObjPtr pDfvObj, const char* newVal);
+
+/**
+ * Specifies the left margin of the paper when inputting text.
+ * Effective when inputting text. 
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	newVal		 the left margin of the paper 
+ */
 DFVINTERFACE_API void dfv_setTextMarginLeftW(CDfvObjPtr pDfvObj, const wchar_t* newVal);
 
 /**
@@ -2688,6 +2926,14 @@ DFVINTERFACE_API void dfv_setTextMarginLeftW(CDfvObjPtr pDfvObj, const wchar_t* 
  * @param	newVal		the top margin of the paper 
  */
 DFVINTERFACE_API void dfv_setTextMarginTop(CDfvObjPtr pDfvObj, const char* newVal);
+
+/**
+ * Specifies the right margin of the paper when inputting text.
+ * Effective when inputting text. 
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	newVal		the top margin of the paper 
+ */
 DFVINTERFACE_API void dfv_setTextMarginTopW(CDfvObjPtr pDfvObj, const wchar_t* newVal);
 
 /**
@@ -2698,6 +2944,14 @@ DFVINTERFACE_API void dfv_setTextMarginTopW(CDfvObjPtr pDfvObj, const wchar_t* n
  * @param	newVal		the right margin of the paper 
  */
 DFVINTERFACE_API void dfv_setTextMarginRight(CDfvObjPtr pDfvObj, const char* newVal);
+
+/**
+ * Specifies the right margin of the paper when inputting text.
+ * Effective when inputting text. 
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	newVal		the right margin of the paper 
+ */
 DFVINTERFACE_API void dfv_setTextMarginRightW(CDfvObjPtr pDfvObj, const wchar_t* newVal);
 
 /**
@@ -2708,6 +2962,14 @@ DFVINTERFACE_API void dfv_setTextMarginRightW(CDfvObjPtr pDfvObj, const wchar_t*
  * @param	newVal		the bottom margin of the paper 
  */
 DFVINTERFACE_API void dfv_setTextMarginBottom(CDfvObjPtr pDfvObj, const char* newVal);
+
+/**
+ * Specifies the right margin of the paper when inputting text.
+ * Effective when inputting text. 
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	newVal		the bottom margin of the paper 
+ */
 DFVINTERFACE_API void dfv_setTextMarginBottomW(CDfvObjPtr pDfvObj, const wchar_t* newVal);
 
 /**
@@ -2718,6 +2980,14 @@ DFVINTERFACE_API void dfv_setTextMarginBottomW(CDfvObjPtr pDfvObj, const wchar_t
  * @param	newVal		font family name 
  */
 DFVINTERFACE_API void dfv_setTextFontFamily(CDfvObjPtr pDfvObj, const char* newVal);
+
+/**
+ * Specifies the font family name when inputting text.
+ * Effective when inputting text. 
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	newVal		font family name 
+ */
 DFVINTERFACE_API void dfv_setTextFontFamilyW(CDfvObjPtr pDfvObj, const wchar_t* newVal);
 
 /**
@@ -2728,6 +2998,14 @@ DFVINTERFACE_API void dfv_setTextFontFamilyW(CDfvObjPtr pDfvObj, const wchar_t* 
  * @param	newVal		font size 
  */
 DFVINTERFACE_API void dfv_setTextFontSize(CDfvObjPtr pDfvObj, const char* newVal);
+
+/**
+ * Specifies the font size when inputting text.
+ * Effective when inputting text. 
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	newVal		font size 
+ */
 DFVINTERFACE_API void dfv_setTextFontSizeW(CDfvObjPtr pDfvObj, const wchar_t* newVal);
 
 /**
@@ -2756,6 +3034,14 @@ DFVINTERFACE_API void dfv_setTextShowLineNumber(CDfvObjPtr pDfvObj, int newVal);
  * @param	newVal		the offset value
  */
 DFVINTERFACE_API void dfv_setTextLineNumberOffset(CDfvObjPtr pDfvObj, const char* newVal);
+
+/**
+ * Specifies the offset value of range from body area when showing line number and inputting text.
+ * Effective when inputting text. 
+ * 
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	newVal		the offset value
+ */
 DFVINTERFACE_API void dfv_setTextLineNumberOffsetW(CDfvObjPtr pDfvObj, const wchar_t* newVal);
 
 /**
@@ -2766,6 +3052,14 @@ DFVINTERFACE_API void dfv_setTextLineNumberOffsetW(CDfvObjPtr pDfvObj, const wch
  * @param	newVal		line number format 	
  */
 DFVINTERFACE_API void dfv_setTextLineNumberFormat(CDfvObjPtr pDfvObj, const char* newVal);
+
+/**
+ * Specifies the line number format when showing line number and inputting text.
+ * Effective when inputting text. 
+ * 
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	newVal		line number format 	
+ */
 DFVINTERFACE_API void dfv_setTextLineNumberFormatW(CDfvObjPtr pDfvObj, const wchar_t* newVal);
 
 #if defined(_DOXYGEN) || (defined(_MSC_VER) && defined(_WIN32))
@@ -3088,6 +3382,63 @@ DFVINTERFACE_API void dfv_setWatermarkOpacity(CDfvObjPtr pDfvObj, const char* ne
  * @param	newVal	Pointer to a null-terminated string.
  */
 DFVINTERFACE_API void dfv_setWatermarkOpacityW(CDfvObjPtr pDfvObj, const wchar_t* newVal);
+
+/**
+ * Gets the setting of continuous page numbers across worksheets in Excel header footer/number of pages as a total of all worksheets.
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @return			
+ * If true, inserts continuous page numbers across all worksheets/number of pages as a total of all worksheets.
+ */
+DFVINTERFACE_API int dfv_getContinuePageNumber(CDfvObjPtr pDfvObj);
+
+/**
+ * Sets continuous page numbers across worksheets in Excel header footer/number of pages as a total of all worksheets.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	newVal	
+ * If true, sets continuous page numbers across all worksheets/number of pages as a total of all worksheets.
+ */
+DFVINTERFACE_API void dfv_setContinuePageNumber(CDfvObjPtr pDfvObj, int newVal);
+
+/**
+ * Get the color profile file name.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	pVal		Pointer to the buffer that will receive the text. If the string is as long or longer than the buffer,
+ *			  the string is truncated and terminated with a NULL character.
+ * @param	size		Specifies the number of the 'pVal' buffer, including the NULL character. If the text exceeds this limit, it is truncated.
+ * @return	Returns the 'pVal'.
+ */
+
+DFVINTERFACE_API char* dfv_getPdfColorProfile(CDfvObjPtr pDfvObj, char* pVal, int size);
+/**
+ * Get the color profile file name.
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	pVal		Pointer to the buffer that will receive the text. If the string is as long or longer than the buffer,
+ *			  the string is truncated and terminated with a NULL character.
+ * @param	size		Specifies the number of the 'pVal' buffer, including the NULL character. If the text exceeds this limit, it is truncated.
+ * @return	Returns the 'pVal'.
+ */
+DFVINTERFACE_API wchar_t* dfv_getPdfColorProfileW(CDfvObjPtr pDfvObj, wchar_t* pVal, int size);
+
+/**
+ * Set the color profile file name.
+ * When PDF/A-1b:2005 is specified to PdfVersion, the specification of the color profile is indispensable. Specify the color profile with its full path. This parameter is invalid with any PDF other than PDF/A-1b:2005. 
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	newVal	Pointer to a null-terminated string to be used as the color profile file name.
+ */
+DFVINTERFACE_API void dfv_setPdfColorProfile(CDfvObjPtr pDfvObj, const char* newVal);
+
+/**
+ * Set the color profile file name.
+ * When PDF/A-1b:2005 is specified to PdfVersion, the specification of the color profile is indispensable. Specify the color profile with its full path. This parameter is invalid with any PDF other than PDF/A-1b:2005. 
+ *
+ * @param	pDfvObj	Pointer to DfvObj instance.
+ * @param	newVal	Pointer to a null-terminated string to be used as the color profile file name.
+ */
+DFVINTERFACE_API void dfv_setPdfColorProfileW(CDfvObjPtr pDfvObj, const wchar_t* newVal);
 
 #ifdef __cplusplus
 }
