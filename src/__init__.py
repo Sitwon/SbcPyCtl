@@ -444,8 +444,8 @@ class DfvObj:
 		dfvifc_c.dfv_getErrorMessage.restype = c_char_p
 		return dfvifc_c.dfv_getErrorMessage(self.pDfvObj, cstr, 1024)
 
-	def setFontAlias(self, src, char*):
-		dfvifc_c.dfv_setFontAlias(self.pDfvObj, src, char*)
+	def setFontAlias(self, src, dest):
+		dfvifc_c.dfv_setFontAlias(self.pDfvObj, src, dest)
 
 	def clearFontAlias(self):
 		dfvifc_c.dfv_clearFontAlias(self.pDfvObj)
