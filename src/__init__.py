@@ -460,22 +460,14 @@ class DfvObj:
 		dfvifc_c.dfv_clear(self.pDfvObj)
 
 	def setOnMessageProc(self, proc):
-		dfvifc_c.dfv_setOnMessageProc(self.pDfvObj, proc)
-
-	def setOnMessageProcW(self, proc):
-		dfvifc_c.dfv_setOnMessageProcW(self.pDfvObj, proc)
+		self.onMessageProc_CALLBACK = CFUNCTYPE(None, c_int, c_long, c_char_p)
+		self.onMessageProc_callback = self.onMessageProc_CALLBACK(proc)
+		dfvifc_c.dfv_setOnMessageProc(self.pDfvObj, self.onMessageProc_callback)
 
 	def setOnFormatPageProc(self, proc):
-		dfvifc_c.dfv_setOnFormatPageProc(self.pDfvObj, proc)
-
-	def setOnMessageProcEx(self, proc, pAnyObj):
-		dfvifc_c.dfv_setOnMessageProcEx(self.pDfvObj, proc, pAnyObj)
-
-	def setOnMessageProcExW(self, proc, pAnyObj):
-		dfvifc_c.dfv_setOnMessageProcExW(self.pDfvObj, proc, pAnyObj)
-
-	def setOnFormatPageProcEx(self, proc, pAnyObj):
-		dfvifc_c.dfv_setOnFormatPageProcEx(self.pDfvObj, proc, pAnyObj)
+		self.onFormatPageProc_CALLBACK = CFUNCTYPE(None, c_long)
+		self.onFormatPageProc_callback = self.onFormatPageProc_CALLBACK(proc)
+		dfvifc_c.dfv_setOnFormatPageProc(self.pDfvObj, self.onFormatPageProc_callback)
 
 	def getPrinterName(self):
 		cstr = create_string_buffer(1024)
