@@ -759,3 +759,11 @@ class DfvObj:
 	def setPdfColorProfile(self, newVal):
 		dfvifc_c.dfv_setPdfColorProfile(self.pDfvObj, newVal)
 
+if __name__=="__main__":
+	import sys
+	dfvObj = DfvObj()
+	dfvObj.setExitLevel(4)
+	dfvObj.setDocumentURI(sys.argv[1])
+	dfvObj.setOutputFilePath(sys.argv[2])
+	dfvObj.execute()
+
