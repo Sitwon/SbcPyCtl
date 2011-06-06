@@ -1,3 +1,8 @@
+from ctypes import *
+
+dfvifc_c = cdll.LoadLibrary("libDfvInterface.so")
+
+class DfvObj:
 	def createDfvObject(self):
 		return dfvifc_c.dfv_createDfvObject()
 
