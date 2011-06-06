@@ -22,11 +22,11 @@
 	def setOutputFilePath(self, newVal):
 		dfvifc_c.dfv_setOutputFilePath(self.pDfvObj, newVal)
 
-	def getOptionFileURI(self):
+	def getOptionFileURI(self, n):
 		cstr = create_string_buffer(1024)
-		dfvifc_c.dfv_getOptionFileURI.argtypes = [c_void_p, c_char_p, c_int]
+		dfvifc_c.dfv_getOptionFileURI.argtypes = [c_void_p, c_char_p, c_int, c_int]
 		dfvifc_c.dfv_getOptionFileURI.restype = c_char_p
-		return dfvifc_c.dfv_getOptionFileURI(self.pDfvObj, cstr, 1024)
+		return dfvifc_c.dfv_getOptionFileURI(self.pDfvObj, cstr, 1024, n)
 
 	def setOptionFileURI(self, newVal):
 		dfvifc_c.dfv_setOptionFileURI(self.pDfvObj, newVal)
