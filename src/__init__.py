@@ -3,8 +3,8 @@ from ctypes import *
 dfvifc_c = cdll.LoadLibrary("libDfvInterface.so")
 
 class DfvObj:
-	def createDfvObject(self):
-		return dfvifc_c.dfv_createDfvObject()
+	def __init__(self):
+		self.pDfvObj = dfvifc_c.dfv_createDfvObject(None)
 
 	def releaseDfvObject(self):
 		dfvifc_c.dfv_releaseDfvObject(self.pDfvObj)
