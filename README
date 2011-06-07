@@ -1,0 +1,8 @@
+========
+SbcPyCtl
+========
+
+SbcPyCtl provides python bindings for Rainbow PDF Server Based Converter (SBC).
+
+Make sure that SBC's environment variables are properly set before trying to use SbcPyCtl. On non-Windows platforms you can source the run.sh script in the install directory.
+
