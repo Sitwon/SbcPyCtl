@@ -1,6 +1,14 @@
+import os
 from ctypes import *
 
-dfvifc_c = cdll.LoadLibrary("libDfvInterface.so")
+dfvifc_c = None
+if os.name == "nt":
+	dfvifc_c = cdll.LoadLibrary("DfvInterface")
+else:
+	dfvifc_c = cdll.LoadLibrary("libDfvInterface.so")
+
+if dfvifc_c == None:
+	raise StandardError("DfvInterface library was not loaded.")
 
 class DfvObj:
 	def __init__(self):
