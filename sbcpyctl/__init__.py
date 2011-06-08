@@ -3,9 +3,20 @@ from ctypes import *
 
 dfvifc_c = None
 if os.name == "nt":
-	dfvifc_c = cdll.LoadLibrary("DfvInterface")
+	try:
+		dfvifc_c = cdll.LoadLibrary("DfvInterface31")
+	except WindowsError:
+		pass
+	if dfvifc_c == None:
+		try:
+			dfvifc_c = cdll.LoadLibrary("DfvInterface30")
+		except WindowsError:
+			pass
 else:
-	dfvifc_c = cdll.LoadLibrary("libDfvInterface.so")
+	try:
+		dfvifc_c = cdll.LoadLibrary("libDfvInterface.so")
+	except Exception:
+		pass
 
 if dfvifc_c == None:
 	raise StandardError("DfvInterface library was not loaded.")
