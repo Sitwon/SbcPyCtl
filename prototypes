@@ -134,7 +134,7 @@ void setExitLevel(CDfvObjPtr pDfvObj, DfvIfErrorLevel newVal);
 DfvIfErrorLevel getErrorLevel(CDfvObjPtr pDfvObj);
 DfvIfErrorCode getErrorCode(CDfvObjPtr pDfvObj);
 char* getErrorMessage(CDfvObjPtr pDfvObj, char* pVal, int size);
-void setFontAlias(CDfvObjPtr pDfvObj, char* src, const char* dst);
+void setFontAlias(CDfvObjPtr pDfvObj, char* src, char* dst);
 void clearFontAlias(CDfvObjPtr pDfvObj);
 void eraseFontAlias(CDfvObjPtr pDfvObj, char* src);
 DfvIfErrorCode execute(CDfvObjPtr pDfvObj);
